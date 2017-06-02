@@ -163,4 +163,12 @@ public interface AsyncFile extends ReadStream<Buffer>, WriteStream<Buffer> {
    */
   @Fluent
   AsyncFile setReadBufferSize(int readBufferSize);
+
+  /**
+   * Returns the current size of entity to which this channel is connected.
+   * @param handler
+   * @return a reference to this, so the API can be used fluently
+   */
+  @Fluent
+  AsyncFile size(Handler<AsyncResult<Long>> handler);
 }

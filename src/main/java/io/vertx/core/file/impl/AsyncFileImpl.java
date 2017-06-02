@@ -198,6 +198,20 @@ public class AsyncFileImpl implements AsyncFile {
   }
 
   @Override
+  public AsyncFile size(Handler<AsyncResult<Long>> handler) {
+    check();
+    vertx.executeBlocking(f->{
+      try {
+        f.complete(ch.size());
+      } catch (IOException e) {
+        f.fail(new FileSystemException(e));
+      }
+    },false,handler);
+
+    return this;
+  }
+
+  @Override
   public synchronized boolean writeQueueFull() {
     check();
     return writesOutstanding >= maxWrites;
